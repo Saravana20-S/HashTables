@@ -6,8 +6,14 @@ public class MyHashTable<K, V> {
     private final int numBuckets;
     private final ArrayList<MyMapNode<K, V>> bucketArray;
 
+    // Existing default constructor for backward compatibility (e.g., UC1)
     public MyHashTable() {
-        this.numBuckets = 10; // Fixed small array size for bucket handling
+        this(10); // Automatically calls the overloaded constructor with 10 buckets
+    }
+
+    // Overloaded constructor to handle custom bucket counts dynamically (e.g., UC2)
+    public MyHashTable(int bucketCount) {
+        this.numBuckets = bucketCount;
         this.bucketArray = new ArrayList<>(numBuckets);
 
         // Initialize all buckets to null
