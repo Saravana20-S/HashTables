@@ -63,4 +63,31 @@ public class MyHashTable<K, V> {
         newNode.setNext(head);
         this.bucketArray.set(bucketIndex, newNode);
     }
+
+
+    // UC3: Method to remove a specific key from the Hash Table
+    public V remove(K key) {
+        int bucketIndex = this.getBucketIndex(key);
+        MyMapNode<K, V> head = this.bucketArray.get(bucketIndex);
+        MyMapNode<K, V> prevNode = null;
+
+        // Traverse the linked list chain at this bucket index
+        while (head != null) {
+            // If key is found
+            if (head.getKey().equals(key)) {
+                // If the node to remove is the first node in the bucket
+                if (prevNode == null) {
+                    this.bucketArray.set(bucketIndex, head.getNext());
+                } else {
+                    // Link over the node to bypass/remove it
+                    prevNode.setNext(head.getNext());
+                }
+                return head.getValue(); // Return the value of the removed node
+            }
+            // Move pointers forward
+            prevNode = head;
+            head = head.getNext();
+        }
+        return null; // Key was not found
+    }
 }
